@@ -297,7 +297,7 @@ table.insert(plugins, {
   config = function ()
     require('plugins.dapui')
   end,
-  dependencies = { 'mfussenegger/nvim-dap' }
+  dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' }
 })
 table.insert(plugins, {
   "norcalli/nvim-colorizer.lua",
