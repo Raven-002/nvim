@@ -125,8 +125,8 @@ if config.show_indentations then
   table.insert(plugins, {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
-    setup = function()
-      require("plugins/indent-blankline")
+    config = function()
+      require("ibl").setup()
     end,
   })
 end
