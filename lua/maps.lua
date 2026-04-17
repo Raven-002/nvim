@@ -69,13 +69,13 @@ map("n", "<Leader>bc", ":BufferLinePickClose<CR>")
 
 -- Buffer moving.
 map("n", "<Leader>bl", ":BufferLineMoveNext<CR>")
-map("n", "<Leader>bh", "::BufferLineMovePrev<CR>")
+map("n", "<Leader>bh", ":BufferLineMovePrev<CR>")
 
 
 -- --- Lsp --------------------------------------------------------------------
 -- Native
-map("n", "<Leader>,", ":lua vim.lsp.diagnostic.goto_prev()<CR>")
-map("n", "<Leader>;", ":lua vim.lsp.diagnostic.goto_next()<CR>")
+map("n", "<Leader>,", ":lua vim.diagnostic.goto_prev()<CR>")
+map("n", "<Leader>;", ":lua vim.diagnostic.goto_next()<CR>")
 map("n", "<Leader>a", ":lua vim.lsp.buf.code_action()<CR>")
 -- map("n", "<Leader>gd", ":lua vim.lsp.buf.definition()<CR>")
 map("n", "<Leader>k", ":lua vim.lsp.buf.hover()<CR>")

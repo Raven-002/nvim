@@ -7,7 +7,7 @@ local LAZY_GIT_URL = "https://github.com/folke/lazy.nvim.git"
 local LAZY_GIT_BRANCH = "--branch=stable" -- latest stable release
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -73,7 +73,7 @@ table.insert(plugins, {
   "ellisonleao/gruvbox.nvim",
   lazy = false,    -- Load on startup
   priority = 1000, -- Load first
-  theme_config = function ()
+  config = function()
     require('gruvbox').setup(config.gruvbox_opts)
     vim.o.background = "dark"
   end,
@@ -164,6 +164,9 @@ table.insert(plugins, { 'akinsho/toggleterm.nvim', opts = {} })
 -- --- Syntax -----------------------------------------------------------------
 table.insert(plugins, {
   "nvim-treesitter/nvim-treesitter",
+  -- main branch is a full rewrite (Nvim 0.12+); stay on master for 0.11 + configs API
+  branch = "master",
+  build = ":TSUpdate",
   config = function()
     require('plugins/treesitter')
   end,
@@ -172,21 +175,21 @@ table.insert(plugins, {
 
 -- --- LSP --------------------------------------------------------------------
 table.insert(plugins, {
-  "williamboman/mason.nvim",
+  "mason-org/mason.nvim",
   config = function()
     require('mason').setup({})
   end
 })
 table.insert(plugins, {
-  "williamboman/mason-lspconfig.nvim",
-  dependencies = { "williamboman/mason.nvim" }
+  "mason-org/mason-lspconfig.nvim",
+  dependencies = { "mason-org/mason.nvim" }
 })
 table.insert(plugins, {
   "jay-babu/mason-nvim-dap.nvim",
   config = function()
     require('plugins.dap_config')
   end,
-  dependencies = { "williamboman/mason.nvim" }
+  dependencies = { "mason-org/mason.nvim" }
 })
 table.insert(plugins, {
   "neovim/nvim-lspconfig",
@@ -194,8 +197,8 @@ table.insert(plugins, {
     require('plugins/lsp_config')
   end,
   dependencies = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
     "hrsh7th/nvim-cmp",
     "j-hui/fidget.nvim",
   }
@@ -221,7 +224,7 @@ table.insert(plugins, {
 -- --- Completion -------------------------------------------------------------
 local lspkind_plugin = nil
 if config.use_dev_icons then
-  lspkind_plugin = "onsails/lspkind-nvim"
+  lspkind_plugin = "onsails/lspkind.nvim"
   table.insert(plugins, { lspkind_plugin, lazy = true })
 end
 table.insert(plugins, { "hrsh7th/cmp-nvim-lsp", lazy = true })
@@ -300,7 +303,7 @@ table.insert(plugins, {
   dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' }
 })
 table.insert(plugins, {
-  "norcalli/nvim-colorizer.lua",
+  "NvChad/nvim-colorizer.lua",
   config = function()
     require('colorizer').setup({})
   end,
